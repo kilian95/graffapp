@@ -5,6 +5,9 @@ class MuralsController < ApplicationController
 
 	def index
 		@murals = Mural.all
+
+	
+		
 	end
 
 	def show
@@ -45,7 +48,7 @@ class MuralsController < ApplicationController
 	private
 
 	def mural_params
-		params.require(:mural).permit(:address)
+		params.require(:mural).permit(:address, :long, :lat, :image)
 	end
 
 	def find_mural

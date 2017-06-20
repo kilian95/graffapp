@@ -9,7 +9,18 @@
           %li= msg
   
   =render 'map'
+
+
   .form-group
     =f.input :address, input_html: {class: 'form-control'}
+
+    =f.input :lat, input_html: {class: 'form-control', id: "lat"}
+
+    =f.input :long, input_html: {class: 'form-control', id:"long"}
+  
+  .form-group
+  = f.label :image do
+    = f.file_field :image
+    = f.hidden_field :image_cache
 
   =f.button :submit, class: "btn btn-primary"
