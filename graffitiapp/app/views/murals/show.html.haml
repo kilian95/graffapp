@@ -1,8 +1,8 @@
 =render 'showmap'
 
 %h2= @mural.address
-%h2#test= @mural.lat
-%h2= @mural.long
+%h2#lat= @mural.lat
+%h2#long= @mural.long
 
 .displaygrid
 	%h3 Display in grid
@@ -44,6 +44,8 @@
 			$('.displaygrid').removeClass('hidden');
 			
 		});
+
+		
 
 
 
