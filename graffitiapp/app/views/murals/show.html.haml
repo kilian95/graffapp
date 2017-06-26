@@ -16,8 +16,12 @@
 
 
 
+%h3 Add more images
 
-
+= form_for @mural, url: mural_images_path(@mural), method: :post do |f|
+	.form-group
+		= f.file_field :images, multiple: true
+	=f.button :submit, class: "btn btn-primary"
 
 
 
