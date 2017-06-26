@@ -11,10 +11,6 @@
 	%h3 Display one by one
 
 .box.panel.panel-default
-	.info
-		=@mural.created_at.to_time.strftime('Uploaded: %B %e') 
-	
-
 	=@mural.images.each do |image|
 		= image_tag(image.url)
 

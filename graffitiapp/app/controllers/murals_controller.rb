@@ -4,10 +4,7 @@ class MuralsController < ApplicationController
 
 
 	def index
-		@murals = Mural.all
-
-	
-		
+		@murals = Mural.all	
 	end
 
 	def show
