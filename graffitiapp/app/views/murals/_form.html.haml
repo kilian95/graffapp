@@ -19,8 +19,6 @@
     =f.input :long, input_html: {class: 'form-control', id:"long"}
   
   .form-group
-  = f.label :image do
-    = f.file_field :image
-    = f.hidden_field :image_cache
+    = f.file_field :images, multiple: true
 
   =f.button :submit, class: "btn btn-primary"

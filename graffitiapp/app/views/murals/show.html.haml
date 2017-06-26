@@ -13,13 +13,23 @@
 .box.panel.panel-default
 	.info
 		=@mural.created_at.to_time.strftime('Uploaded: %B %e') 
-	= image_tag @mural.image.url.to_s
+	
 
-//testing purposes
-.box.panel.panel-default
-	.info
-		=@mural.created_at.to_time.strftime('Uploaded: %B %e') 
-	= image_tag @mural.image.url.to_s
+	=@mural.images.each do |image|
+		= image_tag(image.url)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .grid.hidden
 	%h4 put grid here	
