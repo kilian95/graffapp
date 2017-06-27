@@ -1,6 +1,6 @@
 TODO
 
 * Map only loads on refresh of page. https://stackoverflow.com/questions/19773712google-maps-doesnt-show-until-i-refresh
-* Add map to index with markers
+* Add map to index with markers (for each mural place marker ??)
 * add user login/signin (devise gem)
 * Add rd name to show page.

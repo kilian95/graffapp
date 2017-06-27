@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+   
+   <head>
+    
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnbDDZdGNHuoFZk6LM3Jwq2JE8iVv7OA&callback=initMap"></script>
+
+      
+      <script>
+
+         function initMap() { 
+            var lat = document.getElementById("lat").innerText;
+            var long = document.getElementById("long").innerText;
+            var latlng = new google.maps.LatLng(lat, long);
+            var myOptions = {
+                zoom: 13,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+                
+            var map = new google.maps.Map(document.getElementById("sample"),myOptions);      
+
+            var marker = new google.maps.Marker({
+               position: new google.maps.LatLng(lat, long),
+               map: map,
+            });
+
+            var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Address</h1>'+
+            '<div id="bodyContent">'+
+            '<p> Image preview </p>'+
+            '</div>';
+
+            var infowindow = new google.maps.InfoWindow({
+              content: contentString
+            });
+
+            google.maps.event.addListener(marker, 'mouseover', function () {
+              infowindow.open(map, marker);
+            });
+
+            marker.addListener('mouseout', function() {
+              infowindow.close();
+            });
+
+            google.maps.event.addListener(marker, 'click', function () {
+              window.location.href = 'http://www.google.com';
+            });
+         }
+      </script>
+      
+   </head>
+   
+   <body onload = "initMap()">
+      <div id = "sample" style = "width:580px; height:400px;"></div>
+   </body>
+   
+</html>

@@ -1,38 +1,106 @@
 <!DOCTYPE html>
 <html>
-   
-   <head>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Reverse Geocoding</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+      #floating-panel {
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        margin-left: -180px;
+        width: 350px;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+      }
+      #latlng {
+        width: 225px;
+      }
+    </style>
+  </head>
+  <body>
     
-     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnbDDZdGNHuoFZk6LM3Jwq2JE8iVv7OA&callback=initMap"></script>
-
+    <div id = "showmap" style = "width:580px; height:400px;"></div>
+    <script>
       
-      <script>
+      // Create map
+      function initMap() {
+        var lat = document.getElementById("lat").innerText;
+        var long = document.getElementById("lng").innerText;
+        var latlng = new google.maps.LatLng(lat, long);
+        var map = new google.maps.Map(document.getElementById('showmap'), {
+          zoom: 15,
+          center: latlng
+        });
 
-       
-         function initMap() {
-            
-            var lat = document.getElementById("lat").innerText;
-            var long = document.getElementById("long").innerText;
-            var latlng = new google.maps.LatLng(lat, long);
-            var myOptions = {
-                zoom: 15,
-                center: latlng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-                
-            var map = new google.maps.Map(document.getElementById("sample"),myOptions);      
-
-            var marker = new google.maps.Marker({
-               position: new google.maps.LatLng(lat, long),
-               map: map,
-            });
-         }
-      </script>
+        var geocoder = new google.maps.Geocoder;
+        var infowindow = new google.maps.InfoWindow;
       
-   </head>
-   
-   <body onload = "initMap()">
-      <div id = "sample" style = "width:580px; height:400px;"></div>
-   </body>
-   
+
+        window.onload = function() {
+          getReverseGeocodingData(geocoder, map, infowindow);
+        };
+      }
+        
+      
+
+      function getReverseGeocodingData(geocoder, map, infowindow) {
+
+        var lat = document.getElementById("lat").innerText;
+        var long = document.getElementById("lng").innerText;
+        var latlng = new google.maps.LatLng(lat, long);
+        // This is making the Geocode request
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({'location': latlng}, function(results, status) {
+          if (status === 'OK') {
+            if (results[1]) {
+              var marker = new google.maps.Marker({
+                position: latlng,
+                map: map
+              });
+              infowindow.setContent(results[1].formatted_address);
+              infowindow.open(map, marker);
+            } else {
+              window.alert('No results found');
+            }
+          } else {
+            window.alert('Geocoder failed due to: ' + status);
+            window.alert(latlng);
+          }
+        });
+      }
+    
+      
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnbDDZdGNHuoFZk6LM3Jwq2JE8iVv7OA&callback=initMap">
+    </script>
+  </body>
 </html>
