@@ -87,6 +87,7 @@
               });
               infowindow.setContent(results[1].formatted_address);
               infowindow.open(map, marker);
+              document.getElementById("address").innerHTML = results[1].formatted_address ;
             } else {
               window.alert('No results found');
             }
@@ -102,5 +103,6 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnbDDZdGNHuoFZk6LM3Jwq2JE8iVv7OA&callback=initMap">
     </script>
+    <h4 id='address'></h4>
   </body>
 </html>
