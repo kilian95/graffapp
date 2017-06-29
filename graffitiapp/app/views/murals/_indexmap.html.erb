@@ -55,9 +55,9 @@
                 document.getElementById("address").innerHTML = results[1].formatted_address ;
               });
 
-              marker.addListener('mouseout', function() {
-                infowindow.close();
-              });
+              // marker.addListener('mouseout', function() {
+              //   infowindow.close();
+              // });
 
               google.maps.event.addListener(marker, 'click', function () {
                 window.location.href = 'http://www.google.com';

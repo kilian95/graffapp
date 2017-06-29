@@ -1,9 +1,13 @@
-=render 'showMap'
+=render 'showmap'
 
 
-%h2= @mural.address
-%h2#lat= @mural.lat
-%h2#lng= @mural.long
+
+#lat= @mural.lat
+#lng= @mural.long
+Artist:
+=@mural.artist
+Painted: 
+=@mural.year.strftime("%Y")
 
 
 .displaygrid
