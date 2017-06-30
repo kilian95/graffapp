@@ -6,7 +6,7 @@ class MuralsController < ApplicationController
 	def index
 		@murals = Mural.all
 
-		gon.testint = Mural.all
+		gon.murals = Mural.all
 	end
 
 	def show
