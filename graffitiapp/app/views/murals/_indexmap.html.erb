@@ -13,7 +13,7 @@
       function initMap() {
         var latlng = new google.maps.LatLng(54.602724, -5.929291);
         var map = new google.maps.Map(document.getElementById('indexmap'), {
-          zoom: 13,
+          zoom: 14,
           center: latlng
         });
 
@@ -24,7 +24,8 @@
 
         window.onload = function() {
           //getReverseGeocodingData(geocoder, map, infowindow);
-          populateMap(map);
+          //populateMap(map);
+          populateMapTest(geocoder, map, infowindow);
         };           
       }
         
@@ -37,9 +38,7 @@
             '</div>';
 
       function getReverseGeocodingData(geocoder, map, infowindow) {
-        var index;
-        for (index = 0; index < gon.murals.length; ++index) {
-          var latlng = new google.maps.LatLng(gon.murals[index].lat, gon.murals[index].long);
+          var latlng = new google.maps.LatLng(gon.murals[0].lat, gon.murals[0].long);
           geocoder.geocode({'location': latlng}, function(results, status) {
             if (status === 'OK') {
               if (results[1]) {
@@ -47,31 +46,71 @@
                   position: latlng,
                   map: map
                 });
-
+                
                 google.maps.event.addListener(marker, 'mouseover', function () {
                   infowindow.open(map, marker);
                   document.getElementById("address").innerHTML = results[1].formatted_address ;
                   // document.getElementById("bodyContent").innerHTML = gon.murals[1].lat ;
-                });              
+                });
+                alert(index);              
               } else {
                   window.alert('No results found'); 
                 }
             } else {
-              window.alert('Geocoder failed due to: ' + status);
-             
-            }
+                window.alert('Geocoder failed due to: ' + status);
+              }
           }); 
-        }
       }  
+////////////////////////////////////////////
 
+      function populateMapTest(geocoder, map, infowindow){
+        var index;
+        for (index = 0; index < gon.murals.length; ++index) {
+          var latlng = new google.maps.LatLng(gon.murals[index].lat, gon.murals[index].long);
+          alert("start of iteration: " + index);
+          geocoder.geocode({'location': latlng}, function(results, status){
+            alert("middle of iteration: " + index);
+            if (status === 'OK') {
+              if (results[1]) {
+                var marker = new google.maps.Marker({
+                  position: latlng,
+                  map: map
+                });
+                
+                google.maps.event.addListener(marker, 'mouseover', function () {
+                  infowindow.open(map, marker);
+                  document.getElementById("address").innerHTML = results[1].formatted_address ;
+                  // document.getElementById("bodyContent").innerHTML = gon.murals[1].lat ;
+                });
+                   
+              } else {
+                  window.alert('No results found'); 
+                }
+            } else {
+                window.alert('Geocoder failed due to: ' + status);
+              }
+            
+          });
+
+          alert("end of iteration: " + index);
+        }  
+      }   
+                
+            
+                       
+
+
+
+////////////////////////////////////////////
       function populateMap(map){
         var index;
         for (index = 0; index < gon.murals.length; ++index) {
           var latlng = new google.maps.LatLng(gon.murals[index].lat, gon.murals[index].long);
+          alert(index);
           var marker = new google.maps.Marker({
             position: latlng,
-            map: map
-          });
+            map: map  
+          }); 
         }
       }           
       
