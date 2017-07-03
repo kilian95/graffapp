@@ -13,19 +13,19 @@
       function initMap() {
         var latlng = new google.maps.LatLng(54.602724, -5.929291);
         var map = new google.maps.Map(document.getElementById('indexmap'), {
-          zoom: 14,
+          zoom: 13,
           center: latlng
         });
 
         var geocoder = new google.maps.Geocoder;
-        var infowindow = new google.maps.InfoWindow({
-          content: contentString
-        });
+        // var infowindow = new google.maps.InfoWindow({
+        //   content: contentString
+        // });
 
         window.onload = function() {
           //getReverseGeocodingData(geocoder, map, infowindow);
-          //populateMap(map);
-          populateMapTest(geocoder, map, infowindow);
+          //populateMap(map, infowindow);
+          populateMapTest(map);
         };           
       }
         
@@ -36,6 +36,8 @@
             '<div id="bodyContent">'+
             '<p> Image preview </p>'+
             '</div>';
+
+
 
       function getReverseGeocodingData(geocoder, map, infowindow) {
           var latlng = new google.maps.LatLng(gon.murals[0].lat, gon.murals[0].long);
@@ -63,54 +65,43 @@
       }  
 ////////////////////////////////////////////
 
-      function populateMapTest(geocoder, map, infowindow){
-        var index;
-        for (index = 0; index < gon.murals.length; ++index) {
-          var latlng = new google.maps.LatLng(gon.murals[index].lat, gon.murals[index].long);
-          alert("start of iteration: " + index);
-          geocoder.geocode({'location': latlng}, function(results, status){
-            alert("middle of iteration: " + index);
-            if (status === 'OK') {
-              if (results[1]) {
-                var marker = new google.maps.Marker({
-                  position: latlng,
-                  map: map
-                });
-                
-                google.maps.event.addListener(marker, 'mouseover', function () {
-                  infowindow.open(map, marker);
-                  document.getElementById("address").innerHTML = results[1].formatted_address ;
-                  // document.getElementById("bodyContent").innerHTML = gon.murals[1].lat ;
-                });
-                   
-              } else {
-                  window.alert('No results found'); 
-                }
-            } else {
-                window.alert('Geocoder failed due to: ' + status);
-              }
-            
+      function populateMapTest(map){
+        
+        var marker, i
+        for (i = 0; i < gon.murals.length; i++){  
+          var artist = gon.murals[i].artist
+          var latlng = new google.maps.LatLng(gon.murals[i].lat, gon.murals[i].long);
+          var marker = new google.maps.Marker({  
+            map: map,
+            position: latlng  
           });
+          var content = artist;
+          var infowindow = new google.maps.InfoWindow()
 
-          alert("end of iteration: " + index);
-        }  
-      }   
-                
-            
-                       
+          google.maps.event.addListener(marker,'mouseover', (function(marker, content, infowindow){ 
+            return function() {
+              infowindow.setContent(content);
+              infowindow.open(map,marker);
+            };
+          })(marker, content, infowindow)); 
+        }
+      }
+                      
+                  
+                  
 
 
 
 ////////////////////////////////////////////
-      function populateMap(map){
+      function populateMap(map, infowindow){
         var index;
         for (index = 0; index < gon.murals.length; ++index) {
           var latlng = new google.maps.LatLng(gon.murals[index].lat, gon.murals[index].long);
-          alert(index);
           var marker = new google.maps.Marker({
             position: latlng,
             map: map  
-          }); 
+          });   
+
         }
       }           
       
