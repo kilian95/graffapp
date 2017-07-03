@@ -74,6 +74,8 @@
         for (i = 0; i < gon.murals.length; i++){  
           var artist = gon.murals[i].artist
           var muralId = gon.murals[i].id
+          var image = gon.murals[i].images[0].url ;
+          
           var latlng = new google.maps.LatLng(gon.murals[i].lat, gon.murals[i].long);
           var marker = new google.maps.Marker({  
             map: map,
@@ -85,7 +87,8 @@
           '</div>'+
           '<h3 id="address" class="firstHeading"><a href="murals/' + muralId + '">' + artist + '</a></h3>'+
           '<div id="bodyContent">'+
-          '<p> Image preview </p>'+
+          '<img src="' + image + '" style="width:200px;">'+
+
           '</div>';      
 
           var infowindow = new google.maps.InfoWindow()
@@ -100,8 +103,7 @@
         }
       }
                       
-                  
-                  
+         
 
 
 
