@@ -25,17 +25,18 @@
         window.onload = function() {
           //getReverseGeocodingData(geocoder, map, infowindow);
           //populateMap(map, infowindow);
-          populateMapTest(map);
+          //populateMapTest(map);
+          populateMapTestgeo(map);
         };           
       }
         
       var contentString = '<div id="content">'+
-            '<div id="siteNotice">'+
-            '</div>'+
-            '<h3 id="address" class="firstHeading"></h3>'+
-            '<div id="bodyContent">'+
-            '<p> Image preview </p>'+
-            '</div>';
+        '<div id="siteNotice">'+
+        '</div>'+
+        '<h3 id="address" class="firstHeading"></h3>'+
+        '<div id="bodyContent">'+
+        '<p> Image preview </p>'+
+        '</div>';
 
 
 
@@ -65,7 +66,9 @@
       }  
 ////////////////////////////////////////////
 
-      function populateMapTest(map){
+    
+
+  function populateMapTestgeo(map){ //populates map with markers and labels AND geocoding
         
         var marker, i
         for (i = 0; i < gon.murals.length; i++){  
@@ -75,13 +78,20 @@
             map: map,
             position: latlng  
           });
-          var content = artist;
+          var content= '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+
+        '<h3 id="address" class="firstHeading">' + artist + '</h3>'+
+        '<div id="bodyContent">'+
+        '<p> Image preview </p>'+
+        '</div>';      
           var infowindow = new google.maps.InfoWindow()
-
+                    
           google.maps.event.addListener(marker,'mouseover', (function(marker, content, infowindow){ 
             return function() {
               infowindow.setContent(content);
               infowindow.open(map,marker);
+              
             };
           })(marker, content, infowindow)); 
         }
@@ -93,7 +103,39 @@
 
 
 ////////////////////////////////////////////
-      function populateMap(map, infowindow){
+
+
+   function populateMapTest(map){ //populates map with markers and labels but no geocoding
+        
+        var marker, i
+        for (i = 0; i < gon.murals.length; i++){  
+          var artist = gon.murals[i].artist
+          var latlng = new google.maps.LatLng(gon.murals[i].lat, gon.murals[i].long);
+          var marker = new google.maps.Marker({  
+            map: map,
+            position: latlng  
+          });
+
+          var content = artist;       
+
+          var infowindow = new google.maps.InfoWindow()
+          
+
+          google.maps.event.addListener(marker,'mouseover', (function(marker, content, infowindow){ 
+            return function() {
+               infowindow.setContent(content);
+               infowindow.open(map,marker);
+
+            };
+          })(marker, content, infowindow)); 
+        }
+      }
+                      
+
+////////////////////////////////////////////
+
+
+      function populateMap(map, infowindow){ //populates map with markers
         var index;
         for (index = 0; index < gon.murals.length; ++index) {
           var latlng = new google.maps.LatLng(gon.murals[index].lat, gon.murals[index].long);
