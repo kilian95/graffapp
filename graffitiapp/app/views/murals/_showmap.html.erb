@@ -27,10 +27,18 @@
 
         window.onload = function() {
           getReverseGeocodingData(geocoder, map, infowindow);
+          getID();
         };
       }
         
-      
+      //get the id from the url
+      function getID(){
+        var url = window.location.href;
+        var id = url.substring(url.lastIndexOf('/')+1);
+        
+      }
+
+
 
       function getReverseGeocodingData(geocoder, map, infowindow) {
 

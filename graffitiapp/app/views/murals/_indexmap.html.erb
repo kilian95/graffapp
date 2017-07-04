@@ -5,7 +5,6 @@
     <meta charset="utf-8">  
   </head>
   <body>
-    
     <div id = "indexmap" style = "width:580px; height:400px;"></div>
     <script>
       
@@ -20,7 +19,7 @@
         var geocoder = new google.maps.Geocoder;
         // var infowindow = new google.maps.InfoWindow({
         //   content: contentString
-        // });
+        // });u
 
         window.onload = function() {
           //getReverseGeocodingData(geocoder, map, infowindow);
@@ -97,7 +96,6 @@
             return function() {
               infowindow.setContent(content);
               infowindow.open(map,marker);
-              
             };
           })(marker, content, infowindow)); 
         }
