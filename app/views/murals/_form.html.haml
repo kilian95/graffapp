@@ -1,0 +1,26 @@
+=simple_form_for @mural, html: {multipart: true} do |f|
+  -if @mural.errors.any?
+    #errors
+      %h2
+      =pluralize(@mural.errors.count, "error")
+      prevented this mural from saving
+      %ul
+        -@mural.errors.full_messages.each do |msg|
+          %li= msg
+  
+  =render 'map'
+
+
+  .form-group
+    =f.input :artist, input_html: {class: 'form-control'}
+
+    =f.input :year
+
+    =f.input :lat, input_html: {class: 'form-control', id: "lat"}
+
+    =f.input :long, input_html: {class: 'form-control', id:"long"}
+  
+  .form-group
+    = f.file_field :images, multiple: true
+
+  =f.button :submit, class: "btn btn-primary"
