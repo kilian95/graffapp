@@ -1,6 +1,3 @@
 TODO
 
 * Map only loads on refresh of page. https://stackoverflow.com/questions/19773712google-maps-doesnt-show-until-i-refresh
-* add user login/signin (devise gem)
-* Add image to index view on mouse over
-* Search by year/artist etc
