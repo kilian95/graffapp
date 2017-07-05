@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <title>Reverse Geocoding</title>
-    
-  </head>
-  <body>
-    
-    <div id = "showmap" style = "width:580px; height:400px;"></div>
-    <script>
-      
+!!!
+%html
+  %head
+    %meta{:content => "initial-scale=1.0, user-scalable=no", :name => "viewport"}/
+    %meta{:charset => "utf-8"}/
+    %title Reverse Geocoding
+  %body
+    #showmap{:style => "width:580px; height:400px;"}
+    :javascript
       // Create map
       function initMap() {
         var lat = document.getElementById("lat").innerText;
@@ -66,12 +62,6 @@
           }
         });
       }
-    
-      
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnbDDZdGNHuoFZk6LM3Jwq2JE8iVv7OA&callback=initMap">
-    </script>
-    <h4 id='address'></h4>
-  </body>
-</html>
+    %script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnbDDZdGNHuoFZk6LM3Jwq2JE8iVv7OA&callback=initMap"}
+      :cdata
+    %h4#address

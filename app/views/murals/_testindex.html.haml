@@ -1,15 +1,12 @@
-<!--  EXAMPLE OF adding a botton in google maps https://developers.google.com/maps/documentation/javascript/examples/control-custom -->
+/ <!--  EXAMPLE OF adding a botton in google maps https://developers.google.com/maps/documentation/javascript/examples/control-custom -->
 
-
-<!DOCTYPE html>
-<html>
-  <head>
-    
-   
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <title>Custom controls</title>
-    <style>
+!!!
+%html
+  %head
+    %meta{:content => "initial-scale=1.0, user-scalable=no", :name => "viewport"}/
+    %meta{:charset => "utf-8"}/
+    %title Custom controls
+    :css
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
@@ -21,21 +18,17 @@
         margin: 0;
         padding: 0;
       }
-    </style>
-  </head>
-  <body>
-    <div id="map"></div>
-    <div id='slider'>Hello World!!</div>
-    <button id='trigger'>Trigger</button>
-    
-    <script >
-      
+  %body
+    #map
+    #slider
+      Hello World!!
+      %h4 yess yess yall
+    %button#trigger Trigger
+    :javascript
       // $('#slider').slideReveal({
       //     trigger: $("#trigger")
       // });
-
-    </script>
-    <script>
+    :javascript
       var map;
       var chicago = {lat: 41.85, lng: -87.65};
 
@@ -93,15 +86,5 @@
         centerControlDiv.index = 1;
         map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
       }
-    
-      
-
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnbDDZdGNHuoFZk6LM3Jwq2JE8iVv7OA&callback=initMap">
-    </script>
-
-
-
-  </body>
-</html>
+    %script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnbDDZdGNHuoFZk6LM3Jwq2JE8iVv7OA&callback=initMap"}
+      :cdata
