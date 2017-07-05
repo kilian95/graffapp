@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    
+   
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <title>Custom controls</title>
@@ -23,6 +25,16 @@
   </head>
   <body>
     <div id="map"></div>
+    <div id='slider'>Hello World!!</div>
+    <button id='trigger'>Trigger</button>
+    
+    <script >
+      
+      // $('#slider').slideReveal({
+      //     trigger: $("#trigger")
+      // });
+
+    </script>
     <script>
       var map;
       var chicago = {lat: 41.85, lng: -87.65};
@@ -59,10 +71,12 @@
         controlUI.appendChild(controlText);
 
         // Setup the click event listeners: simply set the map to Chicago.
-        controlUI.addEventListener('click', function() {
-          window.location.href = "murals/new";
-        });
-
+        // controlUI.addEventListener('click', function() {
+        //   window.location.href = "murals/new";
+        // });
+      $('#slider').slideReveal({
+        trigger: $(controlUI)
+      });
       }
 
       function initMap() {
@@ -79,9 +93,15 @@
         centerControlDiv.index = 1;
         map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
       }
+    
+      
+
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnbDDZdGNHuoFZk6LM3Jwq2JE8iVv7OA&callback=initMap">
     </script>
+
+
+
   </body>
 </html>

@@ -2,10 +2,13 @@
 %html
 %head
 	%title GraffApps
+	%link{:href => "app/assets/img/icons/flavicon.png", :rel => "icon", :type => "image/png"}
 	=include_gon
 	= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
 	= javascript_include_tag 'application', 'data-turbolinks-track' => true
 	= csrf_meta_tags
+
+
 	
 %body
 	-flash.each do |name, msg|
