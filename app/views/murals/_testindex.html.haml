@@ -1,4 +1,4 @@
-/ <!--  EXAMPLE OF adding a botton in google maps https://developers.google.com/maps/documentation/javascript/examples/control-custom -->
+/ <!--  EXAMPLE OF adding a botton in google maps https://developers.google.com/maps/documentation/javascript/examples/control-custom with slider
 
 !!!
 %html
@@ -21,13 +21,9 @@
   %body
     #map
     #slider
-      Hello World!!
-      %h4 yess yess yall
-    %button#trigger Trigger
-    :javascript
-      // $('#slider').slideReveal({
-      //     trigger: $("#trigger")
-      // });
+      =render 'slider'
+    
+    
     :javascript
       var map;
       var chicago = {lat: 41.85, lng: -87.65};

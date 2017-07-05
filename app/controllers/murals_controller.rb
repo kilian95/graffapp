@@ -1,7 +1,13 @@
 class MuralsController < ApplicationController
 
 	 before_action :find_mural, only: [:show, :edit, :update, :destroy]
+	 # before_action :initialize_mural
 
+
+	 # allows murals to be created on index
+	# def initialize_mural 
+ #    	@mural = Mural.new
+ #  	end
 
 	def index
 		@murals = Mural.all
