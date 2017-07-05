@@ -1,0 +1,72 @@
+%head
+	=include_gon
+
+
+=render 'showmap'
+
+
+
+#lat= @mural.lat
+#lng= @mural.long
+Artist:
+=@mural.artist
+Painted: 
+-if @mural.year?
+	=@mural.year.strftime("%Y")
+
+
+.displaygrid
+	%h3 Display in grid
+.displaysingle.hidden
+	%h3 Display one by one
+
+.box.panel.panel-default
+	=@mural.images.each do |image|
+		= image_tag(image.url)
+
+
+
+%h3 Add more images
+
+= form_for @mural, url: mural_images_path(@mural), method: :post do |f|
+	.form-group
+		= f.file_field :images, multiple: true
+	=f.button :submit, class: "btn btn-primary"
+
+
+
+
+
+
+
+
+
+.grid.hidden
+	%h4 put grid here	
+
+
+:javascript
+	$(".displaygrid").click(function()
+		{
+			$('.box.panel.panel-default').addClass('hidden'); 
+			$('.displaygrid').addClass('hidden');
+
+			$('.grid').removeClass('hidden');
+			$('.displaysingle').removeClass('hidden');
+			
+		});
+
+		$(".displaysingle").click(function()
+		{
+			$('.grid').addClass('hidden');
+			$('.displaysingle').addClass('hidden');
+
+			$('box.panel.panel-default').removeClass('hidden');
+			$('.displaygrid').removeClass('hidden');
+			
+		});
+
+		
+
+
+
