@@ -15,10 +15,11 @@
     =f.input :artist, input_html: {class: 'form-control'}
 
     =f.input :year
+    .hide
+    
+      =f.input :lat, input_html: {class: 'form-control', id: "lat"}
 
-    =f.input :lat, input_html: {class: 'form-control', id: "lat"}
-
-    =f.input :long, input_html: {class: 'form-control', id:"long"}
+      =f.input :long, input_html: {class: 'form-control', id:"long"}
   
   .form-group
     = f.file_field :images, multiple: true
