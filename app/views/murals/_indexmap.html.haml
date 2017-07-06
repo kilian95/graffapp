@@ -50,7 +50,7 @@
                   document.getElementById("address").innerHTML = results[1].formatted_address ;
                   // document.getElementById("bodyContent").innerHTML = gon.murals[1].lat ;
                 });
-                alert(index);              
+                             
               } else {
                   window.alert('No results found'); 
                 }
@@ -67,7 +67,7 @@
             var artist = gon.murals[i].artist
             var muralId = gon.murals[i].id
             var image = gon.murals[i].images[0].url ;
-            alert(i);
+            
             
             var latlng = new google.maps.LatLng(gon.murals[i].lat, gon.murals[i].long);
             var marker = new google.maps.Marker({  
