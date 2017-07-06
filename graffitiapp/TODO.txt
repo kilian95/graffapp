@@ -1,3 +1,0 @@
-TODO
-
-* Map only loads on refresh of page. https://stackoverflow.com/questions/19773712google-maps-doesnt-show-until-i-refresh
