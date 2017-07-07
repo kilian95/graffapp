@@ -21,9 +21,9 @@
 					=link_to " GraffApp ", root_path
 			%ul.nav.navbar-nav
 				%li.active
-					=link_to "Home", root_path
+					=link_to "Home", root_path, data: { turbolinks: false }
 				%li	
-					=link_to "Add", new_mural_path
+					=link_to "Add", new_mural_path, data: { turbolinks: false }
 	=yield
 
 
