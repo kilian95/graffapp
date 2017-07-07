@@ -19,7 +19,7 @@
           window.onload = function() {
             populateMapTestgeo(map);
             //populateMap(map);
-
+         
           }; 
 
           var centerControlDiv = document.createElement('div');
@@ -62,13 +62,12 @@
           }); 
         }  
                
-        function populateMapTestgeo(map){ //populates map with markers and labels AND geocoding
-              
+        function populateMapTestgeo(map){ //populates map with markers and labels              
           var marker, i
           for (i = 0; i < gon.murals.length; i++){  
             var artist = gon.murals[i].artist
             var muralId = gon.murals[i].id
-            var image = gon.murals[i].images[0].url ;
+            var image = gon.murals[i].images[0].url ; 
             
             
             var latlng = new google.maps.LatLng(gon.murals[i].lat, gon.murals[i].long);
@@ -82,7 +81,7 @@
             '</div>'+
             '<h3 id="address" class="firstHeading"><a href="murals/' + muralId + '">' + artist + '</a></h3>'+
             '<div id="bodyContent">'+
-            '<img src="' + image + '" style="width:200px;">'+
+            '<img src="' + artist + '" style="width:200px;">'+
   
             '</div>';      
   
@@ -96,6 +95,19 @@
             })(marker, content, infowindow)); 
           }
         }
+
+       
+ 
+         function populateMap(map){ //populates map with markers
+          var index;
+          for (index = 0; index < gon.murals.length; ++index) {
+            var latlng = new google.maps.LatLng(gon.murals[index].lat, gon.murals[index].long);
+            var marker = new google.maps.Marker({
+              position: latlng,
+              map: map  
+            });   
+          }
+        }  
 
         function CenterControl(controlDiv, map) {
 
@@ -126,18 +138,6 @@
             trigger: $(controlUI)
           });
         }
-
-        function populateMap(map){ //populates map with markers
-          var index;
-          for (index = 0; index < gon.murals.length; ++index) {
-            var latlng = new google.maps.LatLng(gon.murals[index].lat, gon.murals[index].long);
-            var marker = new google.maps.Marker({
-              position: latlng,
-              map: map  
-            });   
-          }
-        }      
-
 
     %script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnbDDZdGNHuoFZk6LM3Jwq2JE8iVv7OA&callback=initMap"}
       :cdata

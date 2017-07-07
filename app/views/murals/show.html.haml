@@ -1,8 +1,4 @@
-%head
-	
-
 =render 'showmap'
-
 
 .hide
 	#lat= @mural.lat
@@ -32,8 +28,6 @@ Painted:
 		= f.file_field :images, multiple: true
 	=f.button :submit, class: "btn btn-primary"
 
-
-
 .grid.hidden
 	%h4 put grid here	
 
@@ -58,8 +52,3 @@ Painted:
 			$('.displaygrid').removeClass('hidden');
 			
 		});
-
-		
-
-
-
