@@ -3,4 +3,6 @@ class Mural < ApplicationRecord
 	validates :images, :presence => {:message => "must be uploaded. "}
 	validates :lat, :long, :presence => {:message => "No marker placed on Map. "}
 
+	
+
 end

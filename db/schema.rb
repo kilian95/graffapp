@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170629164615) do
+ActiveRecord::Schema.define(version: 20170707094753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20170629164615) do
     t.float    "long"
     t.string   "images",     default: [],              array: true
     t.string   "artist"
-    t.datetime "year"
+    t.integer  "year"
   end
 
 end
