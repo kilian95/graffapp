@@ -17,7 +17,6 @@
 	width: 100% !important;
 }
 
-
 .box.panel.panel-default{
 	width: 650px;
 	margin: auto;
@@ -36,8 +35,27 @@
 
 #slider{
 	width: 450px !important;
+	box-shadow: -5px 0 15px -6px #585858 inset;
+}
+
+#sliderMap{
+	width: 100%;
+	height: 300px;
+}
+
+#sideTitle{
+	background-color: #eeeeee;
+}
+
+#form{
+	padding: 5px;
+}
+
+.btn-primary {
+    width: 100% !important;
 }
 
 .hide{
 	display: none;
 }
+

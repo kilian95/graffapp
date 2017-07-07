@@ -1,26 +1,33 @@
-%h4 Add Mural
+#sideTitle
+  %h4
+    %b Add Mural
 
-=simple_form_for (Mural.new), html: {multipart: true} do |f|
-  -if Mural.new.errors.any?
-    #errors
-      %h2
-      =pluralize(Mural.new.errors.count, "error")
-      prevented this mural from saving
-      %ul
-        -Mural.new.errors.full_messages.each do |msg|
-          %li= msg
+#form    
 
-  =render 'mapForSidePanel' 
-  map goes here so it does      
+  =simple_form_for (Mural.new), html: {multipart: true} do |f|
+    -if Mural.new.errors.any?
+      #errors
+        %h2
+        =pluralize(Mural.new.errors.count, "error")
+        prevented this mural from saving
+        %ul
+          -Mural.new.errors.full_messages.each do |msg|
+            %li= msg
 
-  .form-group
-    =f.input :artist, input_html: {class: 'form-control'}
-    =f.input :year
-    .hide
-      =f.hidden_field :lat, input_html: {class: 'form-control', id: "lat"}
-      =f.hidden_field :long, input_html: {class: 'form-control', id:"long"}
-  
-  .form-group
-    = f.file_field :images, multiple: true
-  =f.button :submit, class: "btn btn-primary"
-		
+    =render 'mapForSidePanel' 
+          
+
+    .form-group
+      =f.input :artist, input_html: {class: 'form-control'}
+      =f.input :year
+      .hide
+        =f.hidden_field :lat, input_html: {class: 'form-control', id: "lat"}
+        =f.hidden_field :long, input_html: {class: 'form-control', id:"long"}
+    
+    .form-group
+      
+      = f.file_field :images, multiple: true
+    =f.button :submit, 'Add Mural', class: "btn btn-primary"
+ 
+
+  		
