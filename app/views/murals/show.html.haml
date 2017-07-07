@@ -1,5 +1,5 @@
 =render 'showmap'
-
+//=render 'streetviewtest'
 .hide
 	#lat= @mural.lat
 	#lng= @mural.long
@@ -16,9 +16,9 @@ Painted:
 	%h3 Display one by one
 
 .box.panel.panel-default
-	=@mural.images.each do |image|
+	-@mural.images.each do |image|
 		= image_tag(image.url)
-		
+	
 
 
 %h3 Add more images

@@ -2,8 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#showmap{
-	width: 100% !important;
+#showmap, #pano{
+	height: 400px;
+	 width: 50%;
+	 float: left;
 }
 
 #indexmap{
