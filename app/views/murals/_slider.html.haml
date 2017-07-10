@@ -1,6 +1,8 @@
 #sideTitle
   %h4
     %b Add Mural
+    .close
+      %span.glyphicon.glyphicon-remove-circle  
 
 #form    
 
@@ -14,16 +16,16 @@
           -Mural.new.errors.full_messages.each do |msg|
             %li= msg
 
-    =render 'mapForSidePanel' 
+    #sliderMap
           
-
     .form-group
       =f.input :artist, input_html: {class: 'form-control'}
-      =f.input :year
+      =f.label :year 
+      =f.select :year, ['2017', '2016','2015','2014','2013','2012','2011','2010','2009','2008','2007','2006','2005','2004','2003','2002','2001','2000']
       .hide
-        =f.hidden_field :lat, input_html: {class: 'form-control', id: "lat"}
-        =f.hidden_field :long, input_html: {class: 'form-control', id:"long"}
-    
+        =f.input :lat, input_html: {class: 'form-control', id: "lat"}
+        =f.input :long, input_html: {class: 'form-control', id:"long"}
+
     .form-group
       
       = f.file_field :images, multiple: true
