@@ -4,22 +4,31 @@
 	#lat= @mural.lat
 	#lng= @mural.long
 
-Artist:
-=@mural.artist
-Painted: 
--if @mural.year?
-	=@mural.year
+%h1
+	Artist:
+	=@mural.artist
+%h3	
+	Painted: 
+	-if @mural.year?
+		=@mural.year
 
-.displaygrid
-	%h3 Display in grid
-.displaysingle.hidden
-	%h3 Display one by one
+/show grid button but hide grid contents
+.displaygrid 
+	%span.glyphicon.glyphicon-th
+.displaysingle.hidden 
+	%span.glyphicon.glyphicon-align-justify
 
-.box.panel.panel-default
+
+.alignContents
+	.box.panel.panel-default
+		-@mural.images.each do |image|
+			= image_tag(image.url)
+		
+.gridContents.hidden
 	-@mural.images.each do |image|
-		= image_tag(image.url)
-	
-
+		.col-lg-3.col-md-4.col-xs-6.thumb#pop
+			= image_tag(image.url)
+		
 
 %h3 Add more images
 
@@ -28,27 +37,28 @@ Painted:
 		= f.file_field :images, multiple: true
 	=f.button :submit, class: "btn btn-primary"
 
-.grid.hidden
-	%h4 put grid here	
+
 
 
 :javascript
 	$(".displaygrid").click(function()
 		{
-			$('.box.panel.panel-default').addClass('hidden'); 
+			$('.alignContents').addClass('hidden'); 
 			$('.displaygrid').addClass('hidden');
 
-			$('.grid').removeClass('hidden');
+			$('.gridContents').removeClass('hidden');
 			$('.displaysingle').removeClass('hidden');
 			
 		});
 
 		$(".displaysingle").click(function()
 		{
-			$('.grid').addClass('hidden');
+			$('.gridContents').addClass('hidden');
 			$('.displaysingle').addClass('hidden');
 
-			$('box.panel.panel-default').removeClass('hidden');
+			$('.alignContents').removeClass('hidden');
 			$('.displaygrid').removeClass('hidden');
 			
 		});
+
+		
