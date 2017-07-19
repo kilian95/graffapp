@@ -7,7 +7,9 @@
     #indexmap{:style => "width:580px; height:400px;"}
     #slider
       =render 'slider'
-  
+
+   
+
     :javascript
 
       function initMap() {
@@ -66,14 +68,19 @@
           var artist = gon.murals[i].artist
           var muralId = gon.murals[i].id
           var image = gon.murals[i].images[0].url ; 
-            
+          
+          
           var latlng = new google.maps.LatLng(gon.murals[i].lat, gon.murals[i].long);
           var marker = new google.maps.Marker({  
             map: map,
             position: latlng  
           });
 
-          var content= '<div id="modal-header">'+
+          var content= '<div id="content">'+   
+          '<img src="' + image + '" data-toggle="modal" data-target="#myModal" style="width:200px;">'+
+          '</div>';  
+
+          var modalContent=  '<div id="modal-header">'+
           '<h4><div id="modal-title">' + artist + '</h4>'+
           '<button type="button" class="close" data-dismiss="modal">&times;</button>'+
           '</div>'+
@@ -83,15 +90,37 @@
           '<div class="modal-footer">'+
           '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'+
           '</div>';
-                    
-          google.maps.event.addListener(marker,'click', (function(marker, content){ 
-            return function() {           
-              document.getElementById('modalC').innerHTML = content;
-              $("#myModal").modal()   
+        
+                   
+
+          var infowindow = new google.maps.InfoWindow()
+          
+          //open infowwindow on mouseover          
+          google.maps.event.addListener(marker,'mouseover', (function(marker, content, infowindow){ 
+            return function() {
+              infowindow.setContent(content);
+              infowindow.open(map,marker);
             };
-          })(marker, content)); 
+          })(marker, content, infowindow)); 
+
+          //close infowindow on mouseout
+          google.maps.event.addListener(marker,'mouseout', (function( infowindow){ 
+            return function() {
+              infowindow.close();
+            };
+          })(infowindow));           
+
+          //open modal on click
+          google.maps.event.addListener(marker,'click', (function(marker, modalContent){ 
+            return function() {
+              document.getElementById('modalC').innerHTML = modalContent;
+              $("#myModal").modal()     
+            };
+          })(marker, modalContent)); 
         }
       }    
+
+      
 
       function CenterControl(controlDiv, map) {
 
@@ -106,7 +135,7 @@
         controlUI.style.textAlign = 'center';
         controlUI.title = 'Click to recenter the map';
         controlDiv.appendChild(controlUI);
-        
+        //note
         // Set CSS for the control interior.
         var controlText = document.createElement('div');
         controlText.style.color = 'rgb(25,25,25)';
@@ -128,10 +157,17 @@
         $('#slider').slideReveal("hide");
       });
 
+    
     %script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnbDDZdGNHuoFZk6LM3Jwq2JE8iVv7OA&callback=initMap"}
       :cdata
 
     #myModal.modal.fade{:role => "dialog"}
       .modal-dialog
         #modalC.modal-content
-          
+          .modal-header
+            %button.close{"data-dismiss" => "modal", :type => "button"} ×
+            %h4#title1.modal-title 
+          .modal-body
+            %p Some text in the modal.
+          .modal-footer
+            %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close  
