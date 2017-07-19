@@ -7,13 +7,14 @@
     #indexmap{:style => "width:580px; height:400px;"}
     #slider
       =render 'slider'
+  
     :javascript
 
       function initMap() {
         var latlng = new google.maps.LatLng(54.602724, -5.929291);
         var map = new google.maps.Map(document.getElementById('indexmap'), {
           zoom: 13,
-          center: latlng
+          center: latlng 
         });
         //side map 
         var latlng2 = new google.maps.LatLng(54.602724, -5.929291);
@@ -65,31 +66,30 @@
           var artist = gon.murals[i].artist
           var muralId = gon.murals[i].id
           var image = gon.murals[i].images[0].url ; 
-          
-          
+            
           var latlng = new google.maps.LatLng(gon.murals[i].lat, gon.murals[i].long);
           var marker = new google.maps.Marker({  
             map: map,
             position: latlng  
           });
 
-          var content= '<div id="content">'+
-          '<div id="siteNotice">'+
+          var content= '<div id="modal-header">'+
+          '<h4><div id="modal-title">' + artist + '</h4>'+
+          '<button type="button" class="close" data-dismiss="modal">&times;</button>'+
           '</div>'+
-          '<h3 id="address" class="firstHeading"><a href="murals/' + muralId + '"data-turbolinks="false">' + artist + '</a></h3>'+
-          '<div id="bodyContent">'+
-          '<img src="' + image + '" style="width:200px;">'+
-
-          '</div>';      
-
-          var infowindow = new google.maps.InfoWindow()
+          '<div id=".modal-body">'+
+          '<img src="' + image + '"style="width:600px;">'+
+          '</div>'+
+          '<div class="modal-footer">'+
+          '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'+
+          '</div>';
                     
-          google.maps.event.addListener(marker,'mouseover', (function(marker, content, infowindow){ 
-            return function() {
-              infowindow.setContent(content);
-              infowindow.open(map,marker);
+          google.maps.event.addListener(marker,'click', (function(marker, content){ 
+            return function() {           
+              document.getElementById('modalC').innerHTML = content;
+              $("#myModal").modal()   
             };
-          })(marker, content, infowindow)); 
+          })(marker, content)); 
         }
       }    
 
@@ -106,7 +106,7 @@
         controlUI.style.textAlign = 'center';
         controlUI.title = 'Click to recenter the map';
         controlDiv.appendChild(controlUI);
-        //note
+        
         // Set CSS for the control interior.
         var controlText = document.createElement('div');
         controlText.style.color = 'rgb(25,25,25)';
@@ -130,3 +130,8 @@
 
     %script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnbDDZdGNHuoFZk6LM3Jwq2JE8iVv7OA&callback=initMap"}
       :cdata
+
+    #myModal.modal.fade{:role => "dialog"}
+      .modal-dialog
+        #modalC.modal-content
+          
