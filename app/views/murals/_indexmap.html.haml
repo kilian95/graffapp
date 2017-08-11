@@ -66,6 +66,7 @@
         var marker, i
         for (i = 0; i < gon.murals.length; i++){  
           var artist = gon.murals[i].artist
+          var address = gon.murals[i].address
           var muralId = gon.murals[i].id
           var image = gon.murals[i].images[0].url ; 
           
@@ -81,13 +82,13 @@
           '</div>';  
 
           var modalContent=  '<div id="modal-header">'+
-          '<h4><div id="modal-title">Artist: ' + artist + '</h4>'+
-          '<button type="button" class="close" data-dismiss="modal">&times;</button>'+
+          '<h4><div id="modal-title"><strong>Artist: ' + artist + '</strong></h4>'+
           '</div>'+
-          '<div id=".modal-body">'+
+          '<div id="modal-body">'+
           '<img src="' + image + '"style="width:600px;">'+
           '</div>'+
           '<div class="modal-footer">'+
+          ''+
           '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'+
           '</div>';
         
