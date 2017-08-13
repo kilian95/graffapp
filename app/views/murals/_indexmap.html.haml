@@ -11,31 +11,38 @@
    
 
     :javascript
+      // DECLARE GLOBAL VARIABLES
+      var geocoder, address;
 
       function initMap() {
         var latlng = new google.maps.LatLng(54.602724, -5.929291);
         var map = new google.maps.Map(document.getElementById('indexmap'), {
           zoom: 13,
-          center: latlng 
+          center: latlng
         });
+
         //side map 
-        var latlng2 = new google.maps.LatLng(54.602724, -5.929291);
-        map2= new google.maps.Map(document.getElementById("sliderMap"),{
+        map2 = new google.maps.Map(document.getElementById("sliderMap"),{
           center: latlng,
           zoom:13,
         });
+
         //place marker on click for side map.
         google.maps.event.addListener(map2, "click", function(event){
           placeMarker(event.latLng);
+          sideLatLng = event.latLng;
+          var tester = getAddress(geocoder, sideLatLng);
+
           document.getElementById("lat").value = event.latLng.lat();
           document.getElementById("long").value = event.latLng.lng();
         }); 
 
-        var geocoder = new google.maps.Geocoder;
+        geocoder = new google.maps.Geocoder;
 
         window.onload = function() {
-          populateMap(map, geocoder);         
+          populateMap(map);         
         }; 
+
         var centerControlDiv = document.createElement('div');
         var centerControl = new CenterControl(centerControlDiv, map);
         centerControlDiv.index = 1;
@@ -65,40 +72,26 @@
         }
       }
              
-      function populateMap(map, geocoder){ //populates map with markers and labels              
-        var marker, i, index;
-        var address = new Array(gon.murals.length)
+      function populateMap(map){ //populates map with markers and labels              
+        var marker;
         for (i = 0; i < gon.murals.length; i++){  
-          var artist = gon.murals[i].artist
-          var muralId = gon.murals[i].id
-          var image = gon.murals[i].images[0].url ;
+          var artist = gon.murals[i].artist;
+          var muralId = gon.murals[i].id;
+          var image = gon.murals[i].images[0].url;
+          var address = gon.murals[i].address;
           var latlng = new google.maps.LatLng(gon.murals[i].lat, gon.murals[i].long);
-
-           //get address (for loop is skipping over this part till the last loop)
-          geocoder.geocode({'location': latlng}, function(results, status) {
-            if (status === 'OK') {
-              if (results[0]) {
-                address[i] = results[0].formatted_address;
-                alert(i)
-                alert(address[i]);
-              } else {
-                window.alert('No results found');
-              }
-            } else {
-              window.alert('Geocoder failed due to: ' + status);
-            }
-          });
 
           var marker = new google.maps.Marker({  
             map: map,
             position: latlng  
           });
-
          
+          //on mouseover
           var content= '<div id="content">'+   
           '<img src="' + image + '" data-toggle="modal" data-target="#myModal" style="width:200px;">'+
           '</div>';  
 
+          //on click
           var modalContent=  '<div id="modal-header">'+
           '<h4><div id="modal-title"><strong>Artist: ' + artist + '</strong></h4>'+
           '</div>'+
@@ -111,7 +104,8 @@
           '</div>';                   
 
           var infowindow = new google.maps.InfoWindow()
-          
+          //EVENT LISTENERS ------------------------------------------
+
           //open infowwindow on mouseover          
           google.maps.event.addListener(marker,'mouseover', (function(marker, content, infowindow){ 
             return function() {
@@ -131,11 +125,29 @@
           google.maps.event.addListener(marker,'click', (function(marker, modalContent){ 
             return function() {
               document.getElementById('modalC').innerHTML = modalContent;
-              alert(address[i]);
               $("#myModal").modal()     
             };
           })(marker, modalContent)); 
-        } //end of for
+        } //end of for loop
+      }//end of populate map
+
+      function getAddress(geocoder, sideLatLng){
+        geocoder.geocode({'location': sideLatLng}, function(results, status) {
+          if (status === 'OK') {
+            if (results[0]) {
+              //address[i] = results[0].formatted_address;
+              //alert(i + ": " + address[i]);
+              var address = results[0].formatted_address;
+              document.getElementById("address").value = address;
+              return address;
+
+            } else {
+              window.alert('No results found');
+            }
+          } else {
+            window.alert('Geocoder failed due to: ' + status);
+          }
+        }); 
       }
       
       function CenterControl(controlDiv, map) {

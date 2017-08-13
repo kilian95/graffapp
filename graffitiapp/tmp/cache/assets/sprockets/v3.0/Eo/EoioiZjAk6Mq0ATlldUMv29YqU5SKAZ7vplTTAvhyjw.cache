@@ -1,0 +1,5 @@
+I"?(function() {
+  alert(gon.murals.artist);
+
+}).call(this);
+:ET

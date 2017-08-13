@@ -53,7 +53,7 @@ class MuralsController < ApplicationController
 	private
 
 	def mural_params
-		params.require(:mural).permit(:artist, :year, :long, :lat, {images: []})
+		params.require(:mural).permit(:artist, :year, :long, :lat, :address, {images: []})
 	end
 
 	def find_mural
