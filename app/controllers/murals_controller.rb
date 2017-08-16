@@ -1,6 +1,7 @@
 class MuralsController < ApplicationController
 
 	 before_action :find_mural, only: [:show, :edit, :update, :destroy]
+	 skip_before_filter :verify_authenticity_token
 	 # before_action :initialize_mural
 
 
@@ -33,7 +34,7 @@ class MuralsController < ApplicationController
 		 if @mural.save
       		redirect_to root_path, notice: "succesfully added new mural"
     	else
-      		render 'new'
+      		redirect_to root_path, notice: "Could not save Mural"
     	end
 	end
 
