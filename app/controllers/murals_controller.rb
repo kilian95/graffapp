@@ -31,7 +31,7 @@ class MuralsController < ApplicationController
 		@mural = Mural.new(mural_params)
 
 		 if @mural.save
-      		redirect_to @mural, notice: "succesfully added new mural"
+      		redirect_to root_path, notice: "succesfully added new mural"
     	else
       		render 'new'
     	end
