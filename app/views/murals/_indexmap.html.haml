@@ -80,81 +80,48 @@
         } 
 
         var checkbox1 = document.querySelector("input[name=streetart]");
-        checkbox1.onchange = function() 
-        {
-          if(this.checked) { 
-            for (i = 0; i < gmarkers.length; i++){
-              if (gmarkers[i].category == "Street-art"){
-                gmarkers[i].setVisible(true);
-              }
-            }
-          }else{ 
-            //go through each marker and check the category
-            for (i = 0; i < gmarkers.length; i++){
-              if (gmarkers[i].category == "Street-art"){
-                gmarkers[i].setVisible(false);
-              }
-            }
-          }    
-        }  
+        checkbox1.onchange = function(){
+          for (i = 0; i < gmarkers.length; i++){
+            if(this.checked && gmarkers[i].category == "Street-art") { 
+              gmarkers[i].setVisible(true);
+            } else if (!this.checked && gmarkers[i].category == "Street-art"){
+              gmarkers[i].setVisible(false);
+            } 
+          }
+        }
 
         var checkbox2 = document.querySelector("input[name=republican]");
-        checkbox2.onchange = function() 
-        {
-          if(this.checked) { 
-            for (i = 0; i < gmarkers.length; i++){
-              if (gmarkers[i].category == "Republican mural"){
-                gmarkers[i].setVisible(true);
-              }
+        checkbox2.onchange = function(){
+          for (i = 0; i < gmarkers.length; i++){
+            if(this.checked && gmarkers[i].category == "Republican mural") { 
+              gmarkers[i].setVisible(true);
+            } else if (!this.checked && gmarkers[i].category == "Republican mural"){
+              gmarkers[i].setVisible(false);
             }
-          }else{ 
-            //go through each marker and check the category
-            for (i = 0; i < gmarkers.length; i++){
-              if (gmarkers[i].category == "Republican mural"){
-                gmarkers[i].setVisible(false);
-              }
-            }
-          }    
+          } 
         }  
 
         var checkbox3 = document.querySelector("input[name=loyalist]");
-        checkbox3.onchange = function() 
-        {
-          if(this.checked) { 
-            for (i = 0; i < gmarkers.length; i++){
-              if (gmarkers[i].category == "Loyalist mural"){
-                gmarkers[i].setVisible(true);
-              }
+        checkbox3.onchange = function(){
+          for (i = 0; i < gmarkers.length; i++){
+            if(this.checked && gmarkers[i].category == "Loyalist mural") { 
+              gmarkers[i].setVisible(true);
+            } else if (!this.checked && gmarkers[i].category == "Loyalist mural"){
+              gmarkers[i].setVisible(false);
             }
-          }else{ 
-            //go through each marker and check the category
-            for (i = 0; i < gmarkers.length; i++){
-              if (gmarkers[i].category == "Loyalist mural"){
-                gmarkers[i].setVisible(false);
-              }
-            }
-          }    
+          } 
         } 
 
         var checkbox4 = document.querySelector("input[name=other]");
-        checkbox4.onchange = function() 
-        {
-          if(this.checked) { 
-            for (i = 0; i < gmarkers.length; i++){
-              if (gmarkers[i].category == "Other"){
-                gmarkers[i].setVisible(true);
-              }
+        checkbox4.onchange = function(){
+          for (i = 0; i < gmarkers.length; i++){
+            if(this.checked && gmarkers[i].category == "Other") { 
+              gmarkers[i].setVisible(true);
+            } else if (!this.checked && gmarkers[i].category == "Other"){
+              gmarkers[i].setVisible(false);
             }
-          }else{ 
-            //go through each marker and check the category
-            for (i = 0; i < gmarkers.length; i++){
-              if (gmarkers[i].category == "Other"){
-                gmarkers[i].setVisible(false);
-              }
-            }
-          }    
-        }              
-      
+          } 
+        }  
       }
       //..............................................................................
       var gmarkers = [];//store markers in array
@@ -305,10 +272,10 @@
         controlText.style.lineHeight = '38px';
         controlText.style.paddingLeft = '5px';
         controlText.style.paddingRight = '5px';
-        controlText.innerHTML = '<input type="checkbox" id="streetart" name="streetart" checked="checked" value="Street-art"> Street-art '+
-                                '<input type="checkbox" name="republican" checked="checked" value="Rep"> Republican mural '+
-                                '<input type="checkbox" name="loyalist" checked="checked" value="loy"> Loyalist mural ' +
-                                '<input type="checkbox" name="other" checked="checked" value="loy"> other ';
+        controlText.innerHTML = '<input type="checkbox" name="streetart" checked="checked"> Street-art '+
+                                '<input type="checkbox" name="republican" checked="checked"> Republican mural '+
+                                '<input type="checkbox" name="loyalist" checked="checked"> Loyalist mural ' +
+                                '<input type="checkbox" name="other" checked="checked"> other ';
         controlUI1.appendChild(controlText);
       }
 
