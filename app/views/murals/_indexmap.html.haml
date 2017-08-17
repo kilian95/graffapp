@@ -8,12 +8,8 @@
     #slider
       =render 'slider'
 
-   
-
     :javascript
-      // DECLARE GLOBAL VARIABLES
-      var geocoder, address;
-
+      //..............................................................................
       function initMap() {
         var latlng = new google.maps.LatLng(54.5961, -5.92858);
         var map = new google.maps.Map(document.getElementById('indexmap'), {
@@ -27,28 +23,33 @@
           zoom:13,
         });
 
+        var geocoder;
         //place marker on click for side map.
         google.maps.event.addListener(map2, "click", function(event){
           placeMarker(event.latLng);
           sideLatLng = event.latLng;
           var tester = getAddress(geocoder, sideLatLng);
-
           document.getElementById("lat").value = event.latLng.lat();
           document.getElementById("long").value = event.latLng.lng();
         }); 
-
-        geocoder = new google.maps.Geocoder;
 
         window.onload = function() {
           populateMap(map);         
         }; 
 
+        //add mural button
         var centerControlDiv = document.createElement('div');
         var centerControl = new CenterControl(centerControlDiv, map);
         centerControlDiv.index = 1;
         map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);  
-      } //initmap    
 
+        //narrow search button
+        var centerControlDiv1 = document.createElement('div');
+        var centerControl1 = new leftControl(centerControlDiv1, map);
+        centerControlDiv1.index = 1;
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(centerControlDiv1);  
+      } //initmap    
+      //..............................................................................
       var markersArray = [];
       var map2; 
       function placeMarker(location) {
@@ -61,7 +62,7 @@
         // add marker in markers array
         markersArray.push(marker); 
       }
-
+      //..............................................................................
       // Deletes all markers in the array by removing references to them
       function deleteOverlays() {
         if (markersArray) {
@@ -71,76 +72,181 @@
           markersArray.length = 0;
         }
       }
-             
-      function populateMap(map){ //populates map with markers and labels              
-        var marker;
-        for (i = 0; i < gon.murals.length; i++){  
-          var artist = gon.murals[i].artist;
-          var muralId = gon.murals[i].id;
-          var image = gon.murals[i].images[0].url;
-          var address = gon.murals[i].address;
-          var latlng = new google.maps.LatLng(gon.murals[i].lat, gon.murals[i].long);
+      //..............................................................................
+      function populateMap(map){         
+        var marker, markerColor;
+        for (i = 0; i < gon.murals.length; i++){
+          addMarker(map);
+        } 
 
-          var marker = new google.maps.Marker({  
-            map: map,
-            position: latlng  
-          });
-         
-          //on mouseover
-          var content= '<div id="content">'+   
+        var checkbox1 = document.querySelector("input[name=streetart]");
+        checkbox1.onchange = function() 
+        {
+          if(this.checked) { 
+            for (i = 0; i < gmarkers.length; i++){
+              if (gmarkers[i].category == "Street-art"){
+                gmarkers[i].setVisible(true);
+              }
+            }
+          }else{ 
+            //go through each marker and check the category
+            for (i = 0; i < gmarkers.length; i++){
+              if (gmarkers[i].category == "Street-art"){
+                gmarkers[i].setVisible(false);
+              }
+            }
+          }    
+        }  
+
+        var checkbox2 = document.querySelector("input[name=republican]");
+        checkbox2.onchange = function() 
+        {
+          if(this.checked) { 
+            for (i = 0; i < gmarkers.length; i++){
+              if (gmarkers[i].category == "Republican mural"){
+                gmarkers[i].setVisible(true);
+              }
+            }
+          }else{ 
+            //go through each marker and check the category
+            for (i = 0; i < gmarkers.length; i++){
+              if (gmarkers[i].category == "Republican mural"){
+                gmarkers[i].setVisible(false);
+              }
+            }
+          }    
+        }  
+
+        var checkbox3 = document.querySelector("input[name=loyalist]");
+        checkbox3.onchange = function() 
+        {
+          if(this.checked) { 
+            for (i = 0; i < gmarkers.length; i++){
+              if (gmarkers[i].category == "Loyalist mural"){
+                gmarkers[i].setVisible(true);
+              }
+            }
+          }else{ 
+            //go through each marker and check the category
+            for (i = 0; i < gmarkers.length; i++){
+              if (gmarkers[i].category == "Loyalist mural"){
+                gmarkers[i].setVisible(false);
+              }
+            }
+          }    
+        } 
+
+        var checkbox4 = document.querySelector("input[name=other]");
+        checkbox4.onchange = function() 
+        {
+          if(this.checked) { 
+            for (i = 0; i < gmarkers.length; i++){
+              if (gmarkers[i].category == "Other"){
+                gmarkers[i].setVisible(true);
+              }
+            }
+          }else{ 
+            //go through each marker and check the category
+            for (i = 0; i < gmarkers.length; i++){
+              if (gmarkers[i].category == "Other"){
+                gmarkers[i].setVisible(false);
+              }
+            }
+          }    
+        }              
+      
+      }
+      //..............................................................................
+      var gmarkers = [];//store markers in array
+      function addMarker(map){
+        var group = gon.murals[i].group;
+        var address = gon.murals[i].address;
+        var latlng = new google.maps.LatLng(gon.murals[i].lat, gon.murals[i].long);
+
+        if (group == 'Republican mural'){
+          markerColor = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+        } else if (group == 'Loyalist mural'){
+          markerColor = 'http://maps.google.com/mapfiles/ms/icons/orange-dot.png';
+        } else if (group == 'Street-art'){
+          markerColor = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+        } else if (group == 'Other'){
+          markerColor = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
+        }
+
+        var marker = new google.maps.Marker({  
+          map: map,
+          icon: markerColor,
+          category: group, 
+          position: latlng  
+        });
+        gmarkers.push(marker); //add marker to array
+
+        // alert(gmarkers[i].category); //this works
+        // if (gmarkers[i].category == "Street-art"){
+        //   marker.setVisible(false);
+        // }
+
+        
+        addInfoWindow(group, address, marker, map);  //adds infowindow for each marker
+
+      }
+      //..............................................................................
+
+      function addInfoWindow(group, address, marker, map){
+        var infowindow = new google.maps.InfoWindow()
+        var artist = gon.murals[i].artist;
+        var image = gon.murals[i].images[0].url;
+        //Thumbnail
+        var content= '<div id="content">'+   
           '<img src="' + image + '" data-toggle="modal" data-target="#myModal" style="width:200px;">'+
           '</div>';  
+        //on click
+        var modalContent=  '<div id="modal-header">'+
+        '<h4><div id="modal-title"><strong>Artist: ' + artist + '</strong></h4>'+
+        '</div>'+
+        '<div id="modal-body">'+
+        '<img src="' + image + '"style="width:600px;">'+
+        '</div>'+
+        '<div class="modal-footer">'+
+        '<h4>Type: ' + group + '</h4>'+
+        '<h4>Address: ' + address + '</h4>'+
+        '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'+
+        '</div>'; 
 
-          //on click
-          var modalContent=  '<div id="modal-header">'+
-          '<h4><div id="modal-title"><strong>Artist: ' + artist + '</strong></h4>'+
-          '</div>'+
-          '<div id="modal-body">'+
-          '<img src="' + image + '"style="width:600px;">'+
-          '</div>'+
-          '<div class="modal-footer">'+
-          '<h4>Address: ' + address + '</h4>'+
-          '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'+
-          '</div>';                   
+        //Event Listeners 
+        google.maps.event.addListener(marker,'mouseover', (function(marker, content, infowindow){ 
+          return function() {
+            infowindow.setContent(content);
+            infowindow.open(map,marker);
+          };
+        })(marker, content, infowindow)); 
 
-          var infowindow = new google.maps.InfoWindow()
-          //EVENT LISTENERS ------------------------------------------
+        //close infowindow on mouseout
+        google.maps.event.addListener(marker,'mouseout', (function( infowindow){ 
+          return function() {
+            infowindow.close();
+          };
+        })(infowindow));           
 
-          //open infowwindow on mouseover          
-          google.maps.event.addListener(marker,'mouseover', (function(marker, content, infowindow){ 
-            return function() {
-              infowindow.setContent(content);
-              infowindow.open(map,marker);
-            };
-          })(marker, content, infowindow)); 
+        //open modal on click
+        google.maps.event.addListener(marker,'click', (function(marker, modalContent){ 
+          return function() {
+            document.getElementById('modalC').innerHTML = modalContent;
+            $("#myModal").modal()     
+          };
+        })(marker, modalContent));
 
-          //close infowindow on mouseout
-          google.maps.event.addListener(marker,'mouseout', (function( infowindow){ 
-            return function() {
-              infowindow.close();
-            };
-          })(infowindow));           
-
-          //open modal on click
-          google.maps.event.addListener(marker,'click', (function(marker, modalContent){ 
-            return function() {
-              document.getElementById('modalC').innerHTML = modalContent;
-              $("#myModal").modal()     
-            };
-          })(marker, modalContent)); 
-        } //end of for loop
-      }//end of populate map
-
+            
+      }
+      
+      //..............................................................................
       function getAddress(geocoder, sideLatLng){
         geocoder.geocode({'location': sideLatLng}, function(results, status) {
           if (status === 'OK') {
             if (results[0]) {
-              //address[i] = results[0].formatted_address;
-              //alert(i + ": " + address[i]);
               var address = results[0].formatted_address;
               document.getElementById("address").value = address;
               return address;
-
             } else {
               window.alert('No results found');
             }
@@ -149,7 +255,7 @@
           }
         }); 
       }
-      
+      //..............................................................................     
       function CenterControl(controlDiv, map) {
 
         // Set CSS for the control border.
@@ -161,10 +267,8 @@
         controlUI.style.cursor = 'pointer';
         controlUI.style.marginBottom = '22px';
         controlUI.style.textAlign = 'center';
-        controlUI.title = 'Click to recenter the map';
         controlDiv.appendChild(controlUI);
-        //note
-        // Set CSS for the control interior.
+        
         var controlText = document.createElement('div');
         controlText.style.color = 'rgb(25,25,25)';
         controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
@@ -180,12 +284,39 @@
           trigger: $(controlUI)
         });
       }
+      //..............................................................................
+      function leftControl(controlDiv, map) {
+
+        // Set CSS for the control border.
+        var controlUI1 = document.createElement('div');
+        controlUI1.style.backgroundColor = '#fff';
+        controlUI1.style.border = '2px solid #fff';
+        controlUI1.style.borderRadius = '3px';
+        controlUI1.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+        controlUI1.style.cursor = 'pointer';
+        controlUI1.style.marginBottom = '22px';
+        controlUI1.style.textAlign = 'center';
+        controlDiv.appendChild(controlUI1);
+        
+        var controlText = document.createElement('div');
+        controlText.style.color = 'rgb(25,25,25)';
+        controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+        controlText.style.fontSize = '16px';
+        controlText.style.lineHeight = '38px';
+        controlText.style.paddingLeft = '5px';
+        controlText.style.paddingRight = '5px';
+        controlText.innerHTML = '<input type="checkbox" id="streetart" name="streetart" checked="checked" value="Street-art"> Street-art '+
+                                '<input type="checkbox" name="republican" checked="checked" value="Rep"> Republican mural '+
+                                '<input type="checkbox" name="loyalist" checked="checked" value="loy"> Loyalist mural ' +
+                                '<input type="checkbox" name="other" checked="checked" value="loy"> other ';
+        controlUI1.appendChild(controlText);
+      }
+
       //close side panel on click of glyphicon
       $( ".close" ).click(function() {
         $('#slider').slideReveal("hide");
       });
 
-    
     %script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnbDDZdGNHuoFZk6LM3Jwq2JE8iVv7OA&callback=initMap"}
       :cdata
 
